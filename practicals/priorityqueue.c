@@ -7,15 +7,17 @@ typedef struct Data
 {
     int element;
     int priority;
-} Node;
-Node queue[MAX];
+} Element;
+Element queue[MAX];
 
 int front = -1;
 int rear = -1;
 
 void enqueue(int data, int priority)
 {
-    Node d = {data, priority};
+    Element d;
+    d.element = data;
+    d.priority = priority;
     if (rear == MAX - 1)
     {
         printf("Overflow\n");
@@ -51,13 +53,13 @@ void dequeue()
     }
     else if (front == rear)
     {
-        Node d = queue[front];
+        Element d = queue[front];
         front = rear = -1;
         printf("%d with priority %d dequeued.. \n", d.element, d.priority);
     }
     else
     {
-        Node d = queue[front];
+        Element d = queue[front];
         front++;
         printf("%d with priority %d dequeued.. \n", d.element, d.priority);
     }

@@ -1,99 +1,109 @@
 #include <stdio.h>
-#define N 10
+#include <stdlib.h>
+
+#define N 5
 int deque[N];
 int front = -1, rear = -1;
 
-void insertFromFront(int element)
+void insertRear(int ele)
 {
     if (front == -1 && rear == -1)
     {
         front = rear = 0;
-        deque[front] = element;
     }
     else if ((front == 0 && rear == N - 1) || (front == rear + 1))
     {
-        printf("QUEUE FULL");
-    }
-    else if (front == 0)
-    {
-        front = N - 1;
-        deque[front] = element;
-    }
-    else
-    {
-        front--;
-        deque[front] = element;
-    }
-}
-void deleteFromFront()
-{
-    if (front == -1 && rear == -1)
-    {
-        printf("Queue Empty");
-    }
-    else if (front == rear)
-    {
-        front = rear = -1;
-    }
-    else if (front == N - 1)
-    {
-        front = 0;
-    }
-    else
-    {
-        front++;
-    }
-}
-void insertFromRear(int element)
-{
-    if (front == -1 && rear == -1)
-    {
-        front = rear = 0;
-        deque[rear] = element;
-    }
-    else if ((front == 0 && rear == N - 1) || (front == rear + 1))
-    {
-        printf("QUEUE FULL");
+        printf("\n Full\n");
+        return;
     }
     else if (rear == N - 1)
     {
         rear = 0;
-        deque[rear] = element;
     }
     else
     {
         rear++;
-        deque[rear] = element;
     }
+    deque[rear] = ele;
 }
-void deleteFromRear()
+void deleteFront()
 {
     if (front == -1 && rear == -1)
     {
-        printf("Queue Empty");
+        printf("\n Queue Empty\n");
     }
     else if (front == rear)
     {
+        printf("\nDequeued %d", deque[front]);
+        front = rear = -1;
+    }
+    else if (front == N - 1)
+    {
+        printf("\nDequeued %d", deque[front]);
+        front = 0;
+    }
+    else
+    {
+        printf("\nDequeued %d", deque[front]);
+        front++;
+    }
+}
+void insertFront(int ele)
+{
+    if (front == -1 && rear == -1)
+    {
+        front = rear = 0;
+    }
+    else if ((front == 0 && rear == N - 1) || (front == rear + 1))
+    {
+        printf("\nQueue Full\n");
+        return;
+    }
+    else if (front == 0)
+    {
+        front = N - 1;
+    }
+    else
+    {
+        front--;
+    }
+    deque[front] = ele;
+}
+void deleteRear()
+{
+    if (front == -1 && rear == -1)
+    {
+        printf("\n Queue Empty\n");
+    }
+    else if (front == rear)
+    {
+        printf("\nDequeued %d", deque[rear]);
         front = rear = -1;
     }
     else if (rear == 0)
     {
-        rear = N - 1;
+        printf("\nDequeued %d", deque[rear]);
+        rear == N - 1;
     }
     else
     {
+        printf("\nDequeued %d", deque[rear]);
         rear--;
     }
 }
 void display()
 {
-    int i = front;
-    while (i != rear)
+    if (front == -1 && rear == -1)
     {
-        printf("%d ", deque[i]);
-        i = (i + 1) % N;
+        printf("\n Queue Empty\n");
     }
-    printf("%d\n", deque[rear]);
+    else
+    {
+        for (int i = front; i <= rear; i++)
+        {
+            printf("%d ", deque[i]);
+        }
+    }
 }
 int main()
 {
@@ -112,12 +122,14 @@ int main()
         {
         case 1:
             printf("Input-Restricted Deque Operations:\n");
+            printf("1. Insert at Rear\n");
+            printf("2. Delete from Front\n");
+            printf("3. Delete from Rear\n");
+            printf("4. Display\n");
+            printf("5. Exit Input-Restricted Deque\n");
+
             do
             {
-                printf("1. Insert at Rear\n");
-                printf("2. Delete from Front\n");
-                printf("3. Display\n");
-                printf("4. Exit Input-Restricted Deque\n");
                 printf("Enter your choice: ");
                 scanf("%d", &choice);
 
@@ -132,26 +144,31 @@ int main()
                     deleteFront();
                     break;
                 case 3:
-                    display();
+                    deleteRear();
                     break;
                 case 4:
+                    display();
+                    break;
+                case 5:
                     printf("Exiting Input-Restricted Deque menu.\n");
                     break;
                 default:
                     printf("Invalid choice! Please enter a valid menu option.\n");
                     break;
                 }
-            } while (choice != 4);
+            } while (choice != 5);
             break;
 
         case 2:
             printf("Output-Restricted Deque Operations:\n");
+            printf("1. Insert at Front\n");
+            printf("2. Insert at Rear\n");
+            printf("3. Delete from Front\n");
+            printf("4. Display\n");
+            printf("5. Exit Output-Restricted Deque\n");
+
             do
             {
-                printf("1. Insert at Front\n");
-                printf("2. Delete from Rear\n");
-                printf("3. Display\n");
-                printf("4. Exit Output-Restricted Deque\n");
                 printf("Enter your choice: ");
                 scanf("%d", &choice);
 
@@ -163,19 +180,24 @@ int main()
                     insertFront(item);
                     break;
                 case 2:
-                    deleteRear();
+                    printf("Enter element to insert at rear: ");
+                    scanf("%d", &item);
+                    insertRear(item);
                     break;
                 case 3:
-                    display();
+                    deleteFront();
                     break;
                 case 4:
+                    display();
+                    break;
+                case 5:
                     printf("Exiting Output-Restricted Deque menu.\n");
                     break;
                 default:
                     printf("Invalid choice! Please enter a valid menu option.\n");
                     break;
                 }
-            } while (choice != 4);
+            } while (choice != 5);
             break;
 
         case 3:
