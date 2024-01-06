@@ -180,7 +180,7 @@ int evaluatePostfix(char *postfix)
 }
 int main()
 {
-    char *infix = "a+b/c";
+    char *infix = "K+L-M*N+(O^P)*W/U/V*T+Q";
     printf("Postfix is  %s", infixToPostfix(infix));
     printf("\nPostfix eval  is  %d", evaluatePostfix(infixToPostfix(infix)));
     return 0;
