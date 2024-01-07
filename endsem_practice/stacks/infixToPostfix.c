@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 #define MAX_SIZE 100
 
 char stack[MAX_SIZE];
@@ -62,11 +62,11 @@ int precedence(char ch)
     return -1;
 }
 
-void infixToPostfix(char *exp)
+char *infixToPostfix(char *exp)
 {
     int i = 0;
     int k = 0;
-    char postfix[MAX_SIZE];
+    char *postfix = (char *)malloc((strlen(exp) + 1) * sizeof(char));
 
     while (exp[i] != '\0')
     {
@@ -108,12 +108,57 @@ void infixToPostfix(char *exp)
 
     postfix[k] = '\0';
     printf("Postfix expression: %s\n", postfix);
+    return postfix;
 }
+int isOperator(char ch)
+{
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
+}
+int evaluatePostfix(char *postfix)
+{
 
+    int i = 0;
+    int operand1, operand2, result;
+    while (postfix[i] != '\0')
+    {
+        if (!isOperator(postfix[i]))
+        {
+            push(postfix[i] - '0');
+        }
+        else
+        {
+            operand1 = pop() - '0';
+            operand2 = pop() - '0';
+            switch (postfix[i])
+            {
+            case '+':
+                push((operand1 + operand2) + '0');
+                break;
+            case '-':
+                push((operand1 - operand2) + '0');
+                break;
+            case '*':
+                push((operand1 * operand2) + '0');
+                break;
+            case '/':
+                push((operand1 / operand2) + '0');
+                break;
+
+            default:
+                break;
+            }
+        }
+        i++;
+    }
+
+    result = pop() - '0';
+    return result;
+}
 int main()
 {
     char exp[] = "K+L-M*N+(O^P)*W/U/V*T+Q";
 
-    infixToPostfix(exp);
+    char *postfix = infixToPostfix(exp);
+    printf("\npe eval is %d", evaluatePostfix(postfix));
     return 0;
 }
