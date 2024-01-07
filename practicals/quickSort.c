@@ -30,7 +30,7 @@ int partition(int arr[], int lb, int ub)
     arr[lb] = arr[end];
     arr[end] = temp;
 
-    return end;
+    return end; // swapped pivot pos
 }
 void quickSort(int arr[], int lb, int ub)
 {

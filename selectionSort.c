@@ -7,11 +7,13 @@ int main()
 
     int arr[] = {56, 23, 87, 42, 11};
     int arrLen = sizeof(arr) / sizeof(int);
-
+    // one by one move boundary of unsorted subarray
     for (int i = 0; i < arrLen - 1; i++)
     {
+        // find minimum in unsorted subaaray replace with minimum
         for (int j = i + 1; j < arrLen; j++)
         {
+            // min greater than current so swap
             if (arr[i] > arr[j])
             {
                 int temp = arr[i];
